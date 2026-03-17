@@ -12,9 +12,9 @@ export function Footer() {
           <div>
             <div className="flex items-center space-x-3 mb-4">
               <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center">
-                <span className="font-bold">RS</span>
+                <span className="font-bold">RL</span>
               </div>
-              <h3 className="font-bold text-xl">Retífica Silva</h3>
+              <h3 className="font-bold text-xl">Retivale</h3>
             </div>
             <p className="text-gray-400 mb-4">
               Há mais de 35 anos oferecendo serviços de retífica automotiva com excelência, 
