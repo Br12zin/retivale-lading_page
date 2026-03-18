@@ -2,40 +2,70 @@
 // src/components/Header.tsx
 import Link from 'next/link'
 import { Menu, X } from 'lucide-react'
-
+import { usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const router = useRouter()
+  const isHomePage = pathname === '/'
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
     e.preventDefault()
-    const section = document.getElementById(sectionId)
-    if (section) {
-      const headerOffset = 80
-      const elementPosition = section.getBoundingClientRect().top
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+    
+    if (!isHomePage) {
+      // Se não estiver na home, navega para home com a âncora
+      router.push(`/#${sectionId}`)
+    } else {
+      // Se estiver na home, faz o scroll suave
+      const section = document.getElementById(sectionId)
+      if (section) {
+        const headerOffset = 80
+        const elementPosition = section.getBoundingClientRect().top
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      })
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        })
+      }
     }
     setIsMenuOpen(false)
   }
 
   const scrollToFooter = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
-    const footer = document.getElementById('footer')
-    if (footer) {
-      const headerOffset = 80
-      const elementPosition = footer.getBoundingClientRect().top
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+    
+    if (!isHomePage) {
+      // Se não estiver na home, navega para home e depois vai pro footer
+      router.push('/#footer')
+    } else {
+      // Se estiver na home, faz o scroll suave até o footer
+      const footer = document.getElementById('footer')
+      if (footer) {
+        const headerOffset = 80
+        const elementPosition = footer.getBoundingClientRect().top
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset
 
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        })
+      }
+    }
+    setIsMenuOpen(false)
+  }
+
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    if (isHomePage) {
       window.scrollTo({
-        top: offsetPosition,
+        top: 0,
         behavior: 'smooth'
       })
+    } else {
+      router.push('/')
     }
     setIsMenuOpen(false)
   }
@@ -45,7 +75,11 @@ export function Header() {
       <div className="container-custom">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
+          <a 
+            href="/" 
+            onClick={handleLogoClick}
+            className="flex items-center space-x-3 cursor-pointer"
+          >
             <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center">
               <span className="font-bold text-xl">RL</span>
             </div>
@@ -53,7 +87,7 @@ export function Header() {
               <h1 className="font-bold text-lg">Retivale</h1>
               <p className="text-xs text-gray-400">Desde 1989</p>
             </div>
-          </Link>
+          </a>
 
           {/* Desktop Menu */}
           <nav className="hidden md:flex items-center space-x-8">

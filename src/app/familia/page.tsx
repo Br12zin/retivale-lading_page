@@ -1,17 +1,38 @@
-// src/app/familia/page.tsx
+// Versão com botão mais destacado
+'use client'
+
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { ArrowRight, ArrowLeft } from 'lucide-react'
 import { membrosFamilia } from '../../data/familia'
 import { Header } from '../../components/Header'
 import { Footer } from '../../components/Footer'
 
 export default function FamiliaPage() {
+  const router = useRouter()
+
+  const handleVoltar = () => {
+    router.push('/')
+  }
+
   return (
     <main className="min-h-screen bg-gray-50">
       <Header />
       
       <section className="pt-32 pb-16">
         <div className="container-custom">
+          {/* Botão Voltar Destacado */}
+          <div className="mb-8">
+            <button 
+              onClick={handleVoltar}
+              className="inline-flex items-center hover:bg-red-600 text-gray-700 hover:text-white px-4 py-2 rounded-lg transition group"
+            >
+              <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition" />
+              Voltar para página inicial
+            </button>
+          </div>
+
+          {/* Resto do conteúdo igual... */}
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Nossa Família

@@ -44,12 +44,14 @@ export function Historia() {
           </div>
 
           {/* Imagem */}
-          <div className="relative h-[500px] rounded-lg overflow-hidden shadow-2xl">
-            <div className="absolute inset-0 bg-gradient-to-t from-red-600/20 to-transparent z-10"></div>
-            <div className="w-full h-full bg-gray-300 flex items-center justify-center">
-              {/* Placeholder para imagem - substitua pela imagem real */}
-              <span className="text-gray-600">Imagem da oficina</span>
-            </div>
+          <div className="relative h-[500px] rounded-lg overflow-hidden shadow-2xl group">
+          <div className="absolute inset-0 bg-gradient-to-t from-red-600/20 to-transparent z-10"></div>
+          <Image
+            src="/placeholder.jpg" // Caminho da sua imagem
+            alt="Oficina Retivale"
+            fill
+            className="object-cover transform group-hover:scale-110 transition-transform duration-700"
+            />
           </div>
         </div>
       </div>
